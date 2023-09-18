@@ -6,45 +6,105 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AgendaSimulator extends JFrame {
-    private Map<String, Contato> contatos;
-    private DefaultListModel<String> listModel;
-    private JList<String> listaContatos;
-    private JTextField nomeField;
+    private Map<String, Contato> contatos; //Map é usada para armazenar pares de chaves de valor
+    private DefaultListModel<String> listModel; //DefaultListModel é usada para parametrizar um modelo PADRÃO baseada em Arrays
+    private JList<String> listaContatos; //JList permite a visualização e seleção de um ou mais elementos de uma lista
+    private JTextField nomeField; //JTextField permite a criação de formulários onde é necessário a inserção dos dados pelo teclado
     private JTextField numeroField;
     private JTextField emailField;
 
     private String contatoSelecionado;
 
     public AgendaSimulator() {
-        contatos = new HashMap<>();
+        contatos = new HashMap<>(); //HashMap é um conjunto de pares de chave-valor, para cada elemento (valor) salvo num HashMap deve existir uma chave única atrelada a ele
         listModel = new DefaultListModel<>();
         listaContatos = new JList<>(listModel);
 
         setTitle("Agenda Simulator");
-        setSize(400, 480);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridBagLayout()); // Usar o GridBagLayout para maior controle de posicionamento
+        panel.setBackground(Color.WHITE);
+
+        GridBagConstraints constraints = new GridBagConstraints(); //Gerenciador de layout mais flexível e complexo
+        GridBagConstraints constraints1 = new GridBagConstraints();
+        constraints1.fill = GridBagConstraints.VERTICAL;
+        constraints.fill = GridBagConstraints.HORIZONTAL; //.fil = preencher
+        constraints1.insets = new Insets(5, 5, 5, 5);
+        constraints.insets = new Insets(5, 5, 5, 5); // Espaçamento interno dos botões
 
         JButton adicionarButton = new JButton("Adicionar Contato");
-
         JButton listarButton = new JButton("Listar Contatos");
         JButton excluirButton = new JButton("Excluir Contato");
         JButton editarButton = new JButton("Editar Contato");
         JButton salvarButton = new JButton("Salvar Edições");
 
+        adicionarButton.setPreferredSize(new Dimension(140, 30)); // Definir o tamanho dos botões
+        listarButton.setPreferredSize(new Dimension(140, 30));
+        excluirButton.setPreferredSize(new Dimension(140, 30));
+        editarButton.setPreferredSize(new Dimension(140, 30));
+        salvarButton.setPreferredSize(new Dimension(140, 30));
+
         nomeField = new JTextField();
         numeroField = new JTextField();
         emailField = new JTextField();
 
-        nomeField.setBorder(BorderFactory.createTitledBorder( "Nome do Contato"));
-        nomeField.setBackground(Color.CYAN);
+        adicionarButton.setBackground(Color.LIGHT_GRAY); //Definir cor dos botões
+        listarButton.setBackground(Color.LIGHT_GRAY);
+        excluirButton.setBackground(Color.LIGHT_GRAY);
+        editarButton.setBackground(Color.LIGHT_GRAY);
+        salvarButton.setBackground(Color.LIGHT_GRAY);
+
+        nomeField.setBorder(BorderFactory.createTitledBorder("Nome do Contato")); //Adicionar borda no panel
         numeroField.setBorder(BorderFactory.createTitledBorder("Número do Contato"));
-        numeroField.setBackground(Color.CYAN);
         emailField.setBorder(BorderFactory.createTitledBorder("Email do Contato"));
-        emailField.setBackground(Color.CYAN);
+
+
+        panel.add(adicionarButton);
+        panel.add(listarButton);
+        panel.add(excluirButton);
+        panel.add(editarButton);
+        panel.add(salvarButton);
+        panel.add(nomeField);
+        panel.add(numeroField);
+        panel.add(emailField);
+
+        constraints1.gridy = 0;
+        constraints1.gridwidth = 2; // Expandir em duas colunas
+        panel.add(nomeField, constraints1);
+
+        constraints1.gridy = 1;
+        panel.add(numeroField, constraints1);
+
+        constraints1.gridy = 2;
+        panel.add(emailField, constraints1);
+
+        constraints.gridy = 3;
+        panel.add(adicionarButton, constraints);
+
+        constraints.gridy = 4;
+        panel.add(listarButton, constraints);
+
+        constraints.gridy = 5;
+        panel.add(excluirButton, constraints);
+
+        constraints.gridy = 6;
+        panel.add(editarButton, constraints);
+
+        constraints.gridy = 7;
+        panel.add(salvarButton, constraints);
+
+
+        add(new JScrollPane(listaContatos), BorderLayout.CENTER);
+        add(panel, BorderLayout.EAST);
+
+        setVisible(true);
+
+
+
 
         adicionarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -122,20 +182,8 @@ public class AgendaSimulator extends JFrame {
             }
         });
 
-        panel.add(adicionarButton);
-        panel.add(listarButton);
-        panel.add(excluirButton);
-        panel.add(editarButton);
-        panel.add(salvarButton);
-        panel.add(nomeField);
-        panel.add(numeroField);
-        panel.add(emailField);
-
-        add(new JScrollPane(listaContatos), BorderLayout.CENTER);
-        add(panel, BorderLayout.EAST);
-
-        setVisible(true);
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
