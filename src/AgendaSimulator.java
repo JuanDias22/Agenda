@@ -31,7 +31,7 @@ public class AgendaSimulator extends JFrame {
 
         GridBagConstraints constraints = new GridBagConstraints(); //Gerenciador de layout mais flexível e complexo
         GridBagConstraints constraints1 = new GridBagConstraints();
-        constraints1.fill = GridBagConstraints.VERTICAL;
+        constraints1.fill = GridBagConstraints.HORIZONTAL;
         constraints.fill = GridBagConstraints.HORIZONTAL; //.fil = preencher
         constraints1.insets = new Insets(5, 5, 5, 5);
         constraints.insets = new Insets(5, 5, 5, 5); // Espaçamento interno dos botões
