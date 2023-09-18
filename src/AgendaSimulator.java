@@ -1,31 +1,32 @@
-import javax.swing.*;
+import javax.swing.*; //Importação de biblioteca
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AgendaSimulator extends JFrame {
-    private Map<String, Contato> contatos; //Map é usada para armazenar pares de chaves de valor
-    private DefaultListModel<String> listModel; //DefaultListModel é usada para parametrizar um modelo PADRÃO baseada em Arrays
-    private JList<String> listaContatos; //JList permite a visualização e seleção de um ou mais elementos de uma lista
-    private JTextField nomeField; //JTextField permite a criação de formulários onde é necessário a inserção dos dados pelo teclado
-    private JTextField numeroField;
-    private JTextField emailField;
+public class AgendaSimulator extends JFrame { //JFrame -> janela de aplicativo Swing
+    private Map<String, Contato> contatos; //Map -> armazena contatos usando nomes como chaves
+    private DefaultListModel<String> listModel; //Modelo de lista que armazena os nomes dos contatos para exibição em uma lista na interface.
+    private JList<String> listaContatos; //JList exibe os nomes dos contatos
+    private JTextField nomeField; //JTextField -> interação do user pelo teclado
+    private JTextField numeroField; //JTextField -> interação do user pelo teclado
+    private JTextField emailField; //JTextField -> interação do user pelo teclado
+    private String contatoSelecionado; //Variável que armazena o nome do contato selecionado na lista.
 
-    private String contatoSelecionado;
 
-    public AgendaSimulator() {
+    public AgendaSimulator() { //Construtor
+
         contatos = new HashMap<>(); //HashMap é um conjunto de pares de chave-valor, para cada elemento (valor) salvo num HashMap deve existir uma chave única atrelada a ele
-        listModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>(); //DefaultiListModel -> utilizado para criar um modelo de lista padrão
         listaContatos = new JList<>(listModel);
 
         setTitle("Agenda Simulator");
-        setSize(500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 400); // largura x altura
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //ação padrão para fechar programa após fechar janela
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(); // Cria um novo painel Swing chamado 'panel' para organizar componentes na interface gráfica.
         panel.setLayout(new GridBagLayout()); // Usar o GridBagLayout para maior controle de posicionamento
         panel.setBackground(Color.WHITE);
 
@@ -63,16 +64,16 @@ public class AgendaSimulator extends JFrame {
         emailField.setBorder(BorderFactory.createTitledBorder("Email do Contato"));
 
 
-        panel.add(adicionarButton);
+        panel.add(adicionarButton); //Adiciona botão
         panel.add(listarButton);
         panel.add(excluirButton);
         panel.add(editarButton);
         panel.add(salvarButton);
-        panel.add(nomeField);
+        panel.add(nomeField); //Adiciona painel
         panel.add(numeroField);
         panel.add(emailField);
 
-        constraints1.gridy = 0;
+        constraints1.gridy = 0; //Constraints (restrições) mantém os dados do usuário restritos
         constraints1.gridwidth = 2; // Expandir em duas colunas
         panel.add(nomeField, constraints1);
 
